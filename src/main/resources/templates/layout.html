@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title></title>
+    <link rel="stylesheet" th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"></link>
+    <link rel="stylesheet" th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/signin.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/footer.css}"></link>
+    <script th:src="@{ //maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/user/edit}">Phone book</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/user/settings}" style="padding: 0px; right:60px;">
+                    <div  sec:authentication="name" style="color: white; margin:15px; right:30px;" ></div>
+                    </a>
+
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a href="/login" th:href="@{/login}">
+
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a href="/logout" th:href="@{/logout}">
+
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer class="footer" th:fragment="footer" style="position:absolute;
+bottom: 0px;
+width: 100%;
+height: 60px;
+background-color: #dcdbdb;">
+    <div class="container" style="text-align: center;background-color: #dcdbdb; width: 100%;height: 60px;">
+         <span class="text-muted"><br>&#169; Vadim Putrov</br></span>
+    </div>
+</footer>
+</body>
+</html>

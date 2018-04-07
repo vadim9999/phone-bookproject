@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Phone book</title>
+    <script th:src="@{https://code.jquery.com/jquery-3.2.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.maskedinput.js}"></script>
+    <link rel="stylesheet" th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css}"></link>
+    <script th:src="@{ //maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <link rel="shortcut icon" th:href="@{/css/favicon.png}" type="image/png"></link>
+
+</head>
+<body style="background-color: #eee;">
+
+<div th:replace="layout :: header"></div>
+<div style="margin-top:150px;">
+<table class="table table-hover" style="margin-top:150px;">
+    <thead>
+    <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Middle name</th>
+        <th>Phone number</th>
+        <th>Home number</th>
+        <th>Street</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="contacts : ${user.phoneBook}">
+        <td th:text="${contacts.firstName}">
+        </td>
+        <td th:text="${contacts.lastName}">
+        </td>
+        <td th:text="${contacts.middleName}">
+        </td>
+        <td th:text="${contacts.mobileNumber}">
+        </td>
+        <td th:text="${contacts.homeNumber}">
+        </td>
+        <td th:text="${contacts.street}">
+        </td>
+        <td th:text="${contacts.email}">
+        </td>
+        <td>
+        <!--<a th:text="${}"></a>-->
+            <a th:href="@{/user/edit/delete/{type}(type=${contacts.id})}">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+        </td>
+        <td>
+
+            <a th:href="@{/user/edit/change/{type}(type=${contacts.id})}">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a onClick="openBlock()">
+    <button  type="button" class="btn btn-md">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+    </button>
+</a>
+
+
+<div id="myShowBlock" class="row" th:style="'display: ' + ${displayBlock} + ';' ">
+    <div class="col-lg-6 col-md-7 col-sm-6" >
+        <div class="col-md-6 col-md-offset-3 alert-danger" th:errors="${contact.*}" >
+            <ul>
+                <li th:each="err : ${#fields.errors('${contact.*}')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <form th:action="@{/user/edit/add}" th:object="${contact}" method="post" accept-charset="utf-8" class="form" role="form">
+
+                    <div th:class="${#fields.hasErrors('firstName')}? 'has-error'">
+                        <input type="text" name="firstName"
+                               th:field="*{firstName}" value=""
+                               class="form-control input-lg"
+                               placeholder="First name"  autofocus="true"/>
+                    </div>
+                    <div th:class="${#fields.hasErrors('lastName')}? 'has-error'">
+                        <input type="text" name="lastName"
+                               th:field="*{lastName}" value=""
+                               class="form-control input-lg"
+                               placeholder="Last name"  />
+                    </div>
+
+                <div th:class="${#fields.hasErrors('middleName')}? 'has-error'">
+                    <input type="text" name="email"
+                           th:field="*{middleName}"
+                           class="form-control input-lg"
+                           placeholder="Middle name"  autocomplete="false"/>
+                </div>
+
+                <div th:class="${#fields.hasErrors('mobileNumber')}? 'has-error'">
+                    <input type="text" name="mobileNumber"
+                           th:field="*{mobileNumber}"
+                           class="form-control input-lg"
+                           placeholder="+380 (99) 123 4567"
+                           autocomplete="false"/>
+                </div>
+                <div th:class="${#fields.hasErrors('homeNumber')}? 'has-error'">
+                    <input type="text" name="homeNumber"
+                           th:field="*{homeNumber}"
+                           class="form-control input-lg"
+                           placeholder="123-456-78-99"
+                           autocomplete="false"/>
+                </div>
+                <div th:class="${#fields.hasErrors('street')}? 'has-error'">
+                    <input type="text" name="street"
+                           th:field="*{street}"
+                           class="form-control input-lg"
+                           placeholder="Street"
+                           autocomplete="false"/>
+                </div>
+                <div th:class="${#fields.hasErrors('email')}? 'has-error'">
+                    <input type="text" name="email"
+                           th:field="*{email}"
+                           class="form-control input-lg"
+                           placeholder="Email"  autocomplete="false"/>
+                </div>
+
+
+
+              <div class="form-group" style="margin:15px;">
+                  <div class="col-xs-6 col-sm-6 col-md-6" >
+                      <button type="submit" class="btn btn-primary btn-md" name="button" style="margin-left: 10px;">Add</button>
+                  </div>
+
+
+                <div class="col-xs-6 col-sm-6 col-md-6" style="  margin: 0px;">
+                    <a onClick="closeBlock()">
+                        <button  type="reset" class="btn btn-primary btn-md" name="button">Close</button>
+                        </a>
+                </div>
+              </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<div th:replace="layout :: footer"></div>
+<script type="text/javascript">
+
+    function openBlock() {
+
+        document.getElementById('myShowBlock').style.display = 'block';
+
+    }
+
+        function closeBlock() {
+                document.getElementById('myShowBlock' ).style.display = 'none';
+        }
+
+</script>
+<script>
+    jQuery(function($){
+        $("#mobileNumber").mask("+380 (99) 999 9999");
+        $("#homeNumber").mask("999-999-99-99");
+    });
+</script>
+</body>
+</html>

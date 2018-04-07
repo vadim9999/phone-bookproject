@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Settings</title>
+    <link rel="shortcut icon" th:href="@{/css/favicon.png}" type="image/png"></link>
+    <link rel="stylesheet" th:href="@{/css/main.css}"></link>
+    <link rel="stylesheet" th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"></link>
+    <link rel="stylesheet" th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css}"></link>
+</head>
+<body style="background-color: #eee;">
+<div th:replace="layout :: header"></div>
+<div style="position: relative; top: 160px; left:40px;">
+<table >
+    <tbody>
+    <tr>
+        <td>First name:</td>  <td th:text="${userInfo.firstName}" style="padding-left: 10px;"></td>
+    </tr>
+    <tr>
+      <td>Last name:</td>  <td th:text="${userInfo.lastName}" style="padding-left: 10px;"></td>
+    </tr>
+    <tr>
+      <td>Email:</td>  <td th:text="${userInfo.middleName}" style="padding-left: 10px;"></td>
+    </tr>
+    </tbody>
+</table>
+    <a th:href="@{/user/settings/deleteAccount}">
+        <button style="margin-top: 10px;" type="button" class="btn btn-primary">Delete account</button>
+    </a>
+</div>
+<div th:replace="layout :: footer"></div>
+
+</body>
+</html>

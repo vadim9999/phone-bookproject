@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Sign up</title>
+    <script th:src="@{ //maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/main.css}"></link>
+    <link rel="stylesheet" th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"></link>
+    <link rel="stylesheet" th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css}"></link>
+    <link rel="shortcut icon" th:href="@{/css/favicon.png}" type="image/png"></link>
+
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+
+<div class="container" style="position: relative; top: 160px;">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 alert-danger"  th:errors="${user.*}" >
+            <ul>
+                <li th:each="err : ${#fields.errors('${user.*}')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <form th:action="@{/user/register}" th:object="${user}" method="post" accept-charset="utf-8" class="form" role="form">
+                <legend>Sign Up</legend>
+                <div class="row">
+                    <div th:class="${#fields.hasErrors('firstName')}? 'col-xs-6 col-md-6 has-error': 'col-xs-6 col-md-6'">
+                        <input type="text" name="firstName"
+                               th:field="*{firstName}" value=""
+                               class="form-control input-lg"
+                               placeholder="First name"  autofocus="true"/>
+                    </div>
+                    <div th:class="${#fields.hasErrors('lastName')}? 'col-xs-6 col-md-6 has-error': 'col-xs-6 col-md-6'">
+                        <input type="text" name="lastName"
+                               th:field="*{lastName}" value=""
+                               class="form-control input-lg"
+                               placeholder="Last name"  />
+                    </div>
+                </div>
+                <div th:class="${#fields.hasErrors('middleName')}? 'has-error'">
+                    <input type="text" name="middleName"
+                           th:field="*{middleName}"
+                           class="form-control input-lg"
+                           placeholder="Middle name"  autocomplete="false"/>
+                </div>
+
+                <div th:class="${#fields.hasErrors('username')}? 'has-error'">
+                    <input type="username" name="username"
+                           class="form-control input-lg"
+                           placeholder="Username"
+                           autocomplete="false"/>
+                </div>
+
+                <div th:class="${#fields.hasErrors('password')}? 'has-error'">
+                    <input type="password" name="password"
+                           class="form-control input-lg"
+                           placeholder="Password"
+                           autocomplete="false"/>
+                </div>
+                <input type="password" name="confirm_password"
+                       class="form-control input-lg"
+                       placeholder="Confirm Password"
+                       autocomplete="false"/>
+                <br />
+                <button class="btn btn-lg btn-primary btn-block signup-btn" type="submit">
+                    Sign up</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="layout :: footer"></div>
+
+</body>
+</html>
