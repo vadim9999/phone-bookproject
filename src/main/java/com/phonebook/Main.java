@@ -20,14 +20,14 @@ public class Main {
 		SpringApplication.run(Main.class, args);
 	}
 
-	@Value("${spring.datasource.url}")
+	//@Value("${spring.datasource.url}")
 	private String dbUrl;
 
 	@Bean
 	public DataSource dataSource() throws SQLException, URISyntaxException {
 		System.out.println("Init");
-		String energy = System.getenv().get("DATABASE_URL");
-		System.out.println("GetEnv Url" + energy);
+		dbUrl = System.getenv().get("DATABASE_URL");
+
 		if (dbUrl == null || dbUrl.isEmpty()) {
 			return new HikariDataSource();
 		} else {
