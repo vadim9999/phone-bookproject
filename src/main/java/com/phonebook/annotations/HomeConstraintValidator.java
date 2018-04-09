@@ -15,7 +15,6 @@ public class HomeConstraintValidator implements ConstraintValidator<HomeNumber,S
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        System.out.println("Value = " + value);
         if (value != null && (value.isEmpty() || value.length() == 13))
             return true; else return false;
 

@@ -60,7 +60,6 @@ public class AccountUserServiceImpl implements AccountUserServiceI {
     @Override
     @Transactional
     public UserEntity findByUsername(String username) {
-        System.out.println("Find By Username" + username);
         return repo.findByUsername(username);
     }
 
