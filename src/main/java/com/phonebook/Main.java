@@ -25,6 +25,9 @@ public class Main {
 
 	@Bean
 	public DataSource dataSource() throws SQLException, URISyntaxException {
+		System.out.println("Init");
+		String energy = System.getenv().get("DATABASE_URL");
+		System.out.println("GetEnv Url" + energy);
 		if (dbUrl == null || dbUrl.isEmpty()) {
 			return new HikariDataSource();
 		} else {
@@ -42,8 +45,11 @@ public class Main {
 			config.setJdbcUrl(dbUrl);
 			config.setUsername(username);
 			config.setPassword(password);
+
 			config.setJdbcUrl(config.getJdbcUrl() + "?" + "sslmode=require&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory");
+			System.out.println("Init");
 			return new HikariDataSource(config);
+
 		}
 	}
 }
