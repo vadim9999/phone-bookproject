@@ -18,6 +18,6 @@ In this project are using:
 
 	Database
 
-7. PostgreSQL ore MySQL
+7. PostgreSQL or MySQL
 
  Built on Maven
